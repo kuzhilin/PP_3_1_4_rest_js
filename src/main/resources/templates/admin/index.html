@@ -48,9 +48,6 @@
             <td th:text="${user.email}">value</td>
             <td th:text="${#strings.listJoin(user.roles.![name],',')}">value</td>
             <td>
-                <a class="link_button" th:href="@{/user/{id}(id=${user.id})}">
-                    <button>Link</button>
-                </a>
                 <a class="link_button" th:href="@{/admin/edit(id=${user.id})}">
                     <button>Edit</button>
                 </a>

@@ -5,7 +5,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.util.ArrayList;
@@ -15,11 +14,9 @@ import java.util.List;
 public class DataLoader implements ApplicationRunner {
 
     private final UserService userService;
-    private final RoleService roleService;
 
-    public DataLoader(UserService userService, RoleService roleService) {
+    public DataLoader(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @Override
