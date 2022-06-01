@@ -1,30 +1,36 @@
 package ru.kata.spring.boot_security.demo.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DataLoader implements ApplicationRunner {
 
     private final UserService userService;
+    private final RoleService roleService;
 
-    public DataLoader(UserService userService) {
+    public DataLoader(UserService userService, RoleService roleService) {
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         Role adminRole = new Role("ADMIN");
         Role userRole = new Role("USER");
+        roleService.save(adminRole);
+        roleService.save(userRole);
 
-        List<Role> roles = new ArrayList<>();
+        Set<Role> roles = new HashSet<>();
         roles.add(adminRole);
         roles.add(userRole);
 
