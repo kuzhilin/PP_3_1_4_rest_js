@@ -8,10 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.security.Principal;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -26,23 +29,13 @@ public class AdminController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+    public String index(Model model, Principal principal) {
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("username",principal.getName());
+        model.addAttribute("emptyUser",new User());
+        model.addAttribute("users", users);
+        model.addAttribute("allRoles",roleService.getAllRoles());
         return "admin/index";
-    }
-
-    @GetMapping("/new")
-    public String newUser(Model model,@ModelAttribute("user") User user) {
-       model.addAttribute("roles",roleService.getAllRoles());
-       return "admin/new";
-    }
-
-    @GetMapping("/edit")
-    public String newUser(Model model, @RequestParam("id") long id) {
-
-        model.addAttribute("roles",roleService.getAllRoles());
-        model.addAttribute("user", userService.getUserById(id));
-        return "admin/edit";
     }
 
     @PostMapping
@@ -58,8 +51,8 @@ public class AdminController {
     }
 
     @DeleteMapping
-    public String delete(@RequestParam("id") long id) {
-        userService.delete(id);
+    public String delete(@ModelAttribute("user") User user) {
+        userService.delete(user);
         return "redirect:/admin";
     }
 

@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void delete(long id) {
-        userDao.delete(id);
+    public void delete(User user) {
+        userDao.delete(user);
     }
 
     @Transactional(readOnly = true)

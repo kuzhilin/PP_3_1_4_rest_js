@@ -1,0 +1,26 @@
+<form th:id="${'newForm'+current.index}" class="w-50" th:object="${emptyUser}" th:method="patch" th:action="#{/admin}">
+    <div class="mb-3 d-flex flex-column text-center">
+        <strong>ID</strong>
+        <input type="text" class="form-control" th:value="${user.id}" th:name="id" readonly>
+
+        <strong class="mt-3">First name</strong>
+        <input type="text" class="form-control" th:value="${user.name}" th:name="name">
+
+        <strong class="mt-3">Last name</strong>
+        <input type="text" class="form-control" th:value="${user.lastName}" th:name="lastName">
+
+        <strong class="mt-3">Age</strong>
+        <input type="number" class="form-control" th:value="${user.age}" th:name="age">
+
+        <strong class="mt-3">Email</strong>
+        <input type="email" class="form-control" th:value="${user.email}" th:name="email">
+
+        <strong class="mt-3">Password</strong>
+        <input type="password" class="form-control" th:value="${user.password}" th:name="password">
+
+        <strong class="mt-3">Role</strong>
+        <select multiple class="form-select" size="2" th:name="roles">
+            <option th:each="role : ${allRoles}" th:text="${role.name}" th:value="${role.id}" th:selected="${#lists.contains(user.roles,role)}">Role</option>
+        </select>
+    </div>
+</form>

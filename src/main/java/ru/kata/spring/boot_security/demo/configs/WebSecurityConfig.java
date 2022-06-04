@@ -30,16 +30,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
                 .antMatchers("/user/**").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin().successHandler(successUserHandler)
-                .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/")
-                .permitAll();
+                .logout().logoutSuccessUrl("/");
     }
 
     @Bean

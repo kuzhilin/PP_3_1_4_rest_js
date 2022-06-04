@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -30,15 +29,19 @@ public class DataLoader implements ApplicationRunner {
         roleService.save(adminRole);
         roleService.save(userRole);
 
-        Set<Role> roles = new HashSet<>();
-        roles.add(adminRole);
-        roles.add(userRole);
+        Set<Role> adminRoles = new HashSet<>();
+        adminRoles.add(adminRole);
+        adminRoles.add(userRole);
 
-        User user = new User("admin","admin@gmail.com");
-        user.setPassword("admin");
-        user.setRoles(roles);
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(userRole);
 
+        User admin = new User("admin","admin",25,"admin@gmail.com","admin",adminRoles);
+        System.out.println(admin.toString());
+        User user = new User("user","user",27,"user@gmail.com","user",userRoles);
+        userService.save(admin);
         userService.save(user);
-
     }
+
+
 }
