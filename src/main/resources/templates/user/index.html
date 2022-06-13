@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html class="h-100" lang="en">
+<html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:href="@{/bootstrap/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin page</title>
 </head>
 
-<body class="h-100">
+<body>
 <div class="container-fluid d-flex flex-column h-100 bg-light">
     <div th:replace="/fragments/header"></div>
     <div class="row mt-3 bg-light flex-grow-1">
@@ -28,7 +29,7 @@
                         User-information-page
                     </h1>
                     <h3 class="p-3 border-start border-top border-end m-0">About user</h3>
-                    <table class="table table-striped table-hover border">
+                    <table id="userTable" class="table table-striped table-hover border">
                         <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -40,14 +41,6 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th scope="row" th:text="${user.id}">ID</th>
-                            <td th:text="${user.name}">First Name</td>
-                            <td th:text="${user.lastName}">Last Name</td>
-                            <td th:text="${user.age}">Age</td>
-                            <td th:text="${user.email}">Email</td>
-                            <td th:text="${#strings.listJoin(user.roles.![name],',')}">Roles</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -58,6 +51,10 @@
 </div>
 </div>
 </div>
-<script th:src="@{/bootstrap/bootstrap.bundle.min.js}"></script>
+<script>
+    const userId = [[${userId}]];
+</script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="module" th:src="@{/js/user.js}"></script>
 </body>
 </html>
