@@ -9,6 +9,8 @@ const modalDelete= document.querySelector('#deleteModal');
 const editForm = modalEdit.querySelector('form');
 const deleteForm = modalDelete.querySelector('form');
 
+const csrf = document.querySelector('meta[name=_csrf]').content;
+const csrfHeader = document.querySelector('meta[name=_csrf_header]').content;
 let currentUser;
 let usersStorage = {};
 let rolesStorage = {};
@@ -57,9 +59,11 @@ fetch('http://localhost:8080/api/v1/users')
 newForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const user = userJsonFromForm(newForm,rolesStorage);
+
     fetch('http://localhost:8080/api/v1/users', {
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            [csrfHeader]:csrf
         },
         method: 'POST',
         body: JSON.stringify(user)
@@ -83,7 +87,8 @@ editForm.addEventListener('submit', (e) => {
     user.id = Number(editForm.id.value);
     fetch(`http://localhost:8080/api/v1/users/${user.id}`, {
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            [csrfHeader]:csrf
         },
         method: 'PUT',
         body: JSON.stringify(user)
@@ -108,7 +113,8 @@ deleteForm.addEventListener('submit', (e) => {
     user.id = Number(deleteForm.id.value);
     fetch(`http://localhost:8080/api/v1/users/${user.id}`, {
         headers: {
-            'Content-type': 'application/json'
+            'Content-type': 'application/json',
+            [csrfHeader]:csrf
         },
         method: 'DELETE',
         body: JSON.stringify(user)

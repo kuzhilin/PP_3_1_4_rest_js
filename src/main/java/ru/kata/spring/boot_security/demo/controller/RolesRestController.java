@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,8 +22,9 @@ public class RolesRestController {
     }
 
     @GetMapping
-    public List<Role> allRoles(){
-        return roleService.getAllRoles();
+    public ResponseEntity<List<Role>> allRoles(){
+        return ResponseEntity.ok()
+                .body(roleService.getAllRoles());
     }
 
 }

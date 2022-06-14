@@ -7,7 +7,7 @@ export function addUser(table,user) {
                 <td name="lastName">${user.lastName}</td>
                 <td name="age">${user.age}</td>
                 <td name="email">${user.email}</td>
-                <td name="roles">${user.roles.map(value => value.name).reverse().toString()}</td>
+                <td name="roles">${user.roles.map(value => value.name).sort().toString()}</td>
             `
     let buttons = `
                 <td><button type="button" class="btn btn-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button></td>
@@ -29,7 +29,7 @@ export function updateUser(table,updatedUser) {
     row.querySelector('td[name=lastName]').textContent = updatedUser.lastName;
     row.querySelector('td[name=age]').textContent = updatedUser.age;
     row.querySelector('td[name=email]').textContent = updatedUser.email;
-    row.querySelector('td[name=roles]').textContent = updatedUser.roles.map(value => value.name).toString();
+    row.querySelector('td[name=roles]').textContent = updatedUser.roles.map(value => value.name).sort().toString();
 };
 
 //Delete
